@@ -11,29 +11,7 @@
     </head>
     
     <body class="antialiased">
-      <x-app-layout>
-         <x-slot name="header">
-           <h1>ログインユーザー：{{ Auth::user()->name }}</h1>
-         </x-slot>
-        <h1>シーズン別キャンプ場リサーチ!</h1>
-    　　<p>今の季節にあったキャンプを味わえるキャンプ場を紹介!</p>
-    　　<div class="spring">
-    　　    <a href="/seasons/1">春におすすめ</a>
-    　　</div>
-    　　<div class="summer">
-    　　    <a href="/seasons/2">夏におすすめ</a>
-    　　</div>
-    　　<div class="autumn">
-    　　    <a href="/seasons/3">秋におすすめ</a>
-    　　</div>
-    　　<div class="winter">
-    　　    <a href="/seasons/4">冬におすすめ</a>
-    　　</div>
-    　　<div class="create">
-          <a href='/posts/create'>キャンプ場投稿</a>
-        　<p>自分のお気に入りのキャンプ場を投稿してみよう！</p>
-        </div>
-      　<div class="posts">
+        <div class="posts">
       　    <h2>キャンプ場投稿一覧</h2>
       　    @foreach($posts as $post)
       　    <div class="post">
@@ -51,6 +29,5 @@
       　<div class="paginate">
       　    {{$posts->links()}}
       　</div>
-      </x-app-layout>
     </body>
 </html>
