@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\SeasonController;
+use App\Http\Controllers\CommentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,5 +37,7 @@ Route::controller(PostController::class)->middleware(['auth'])->group(function()
 });
 
 Route::get('/seasons/{season}', [SeasonController::class, 'index'])->middleware("auth");
+
+Route::post('/comments/{post}', [CommentController::class, 'store'])->middleware("auth");
 
 require __DIR__.'/auth.php';
