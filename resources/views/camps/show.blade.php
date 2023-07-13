@@ -27,14 +27,29 @@
       　       <h2>シーズン</h2>
       　       <h2>{{$post->season->season}}</h2>
       　   </div>
+      　   <form action="/comments/{{$post->id}}" method="POST">
+      　    @csrf
+      　    <div class="comment">
+      　       <textarea name="comment" placeholder="コメント" >{{old('comment.body')}}</textarea>
+      　    </div>
+      　    <input type="submit" value="コメントする"/>
+      　   </form>
+      　   @foreach($post->comments as $comment)
+      　   <div class="comment">
+      　       <h1>{{$comment->user->name}}</h1>
+      　       <p>{{$comment->body}}</p>
+      　   </div>
+      　   @endforeach
       　   <div class="edit">
       　       <a href="/posts/{{$post->id}}/edit">編集</a>
       　   </div>
+      　   @if (auth()->id() == $post->user_id)
       　   <form action="/posts/{{$post->id}}" id="form_{{$post->id}}" method="POST">
       　       @csrf
       　       @method('DELETE')
 　　　　　<button type="button" onclick="deletePost({{$post->id}})">削除</button>
       　   </form>
+      　   @endif
       　<div class="footer">
       　    <a href="/">戻る</a>
       　</div>

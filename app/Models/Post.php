@@ -30,4 +30,9 @@ class Post extends Model
     {
         return $this->belongsTo(Season::class);
     }
+    
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }
