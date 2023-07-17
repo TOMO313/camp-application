@@ -15,6 +15,7 @@ class Post extends Model
         return $this::with('season')->orderBy('updated_at', 'DESC')->paginate($limit_count);
     }
     
+    
     protected $fillable=[
         'camp',
         'body',
@@ -34,5 +35,14 @@ class Post extends Model
     public function comments()
     {
         return $this->hasMany(Comment::class);
+    }
+    
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
+    }
+    
+    public function isLikedBy($user, $post):bool{
+        return Like::where('user_id', $user->id)->where('post_id', $post->id)->first() !==null;
     }
 }
