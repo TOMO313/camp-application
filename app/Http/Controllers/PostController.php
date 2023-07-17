@@ -7,6 +7,8 @@ use App\Models\Post;
 use App\Models\User;
 use App\Models\Season;
 use App\Http\Requests\PostRequest;
+use App\Models\Like;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -17,7 +19,12 @@ class PostController extends Controller
     
     public function show(Post $post)
     {
-        return view('camps.show')->with(['post'=>$post]);
+        $user = auth()->user();
+        $post->user = $user;
+        $post->loadCount('likes');
+        // $post->like = Post::withCount('likes')->orderByDesc('updated_at')->get();
+        // $like = Post::withCount('likes')->orderByDesc('updated_at')->get();
+        return view('camps.show')->with(['post' => $post]);
     }
     
     public function create(Season $season)
@@ -50,6 +57,28 @@ class PostController extends Controller
     {
         $post->delete();
         return redirect('/');
+    }
+    
+    public function like(Request $request)
+    {
+        $user_id = Auth::user()->id;
+        $post_id = $request->post_id;
+        $already_liked = Like::where('user_id', $user_id)->where('post_id', $post_id)->first();
+        
+        if(!$already_liked){
+            $like = new Like;
+            $like->post_id = $post_id;
+            $like->user_id = $user_id;
+            $like->save();
+        }else{
+            Like::where('post_id', $post_id)->where('user_id', $user_id)->delete();
+        }
+        
+        $post_likes_count = Post::withCount('likes')->findOrFail($post_id)->likes_count;
+        $param = [
+            'post_likes_count' => $post_likes_count,
+        ];
+        return response()->json($param);
     }
     
 }

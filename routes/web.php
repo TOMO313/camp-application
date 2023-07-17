@@ -32,6 +32,7 @@ Route::controller(PostController::class)->middleware(['auth'])->group(function()
     Route::get('/posts/{post}', 'show')->name('show');
     Route::get('/posts/{post}/edit', 'edit')->name('edit');
     Route::post('/posts', 'store')->name('store');
+    Route::post('/posts/like', 'like')->name('posts.like');
     Route::put('/posts/{post}', 'update')->name('update');
     Route::delete('/posts/{post}', 'delete')->name('delete');
 });
