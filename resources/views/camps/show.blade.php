@@ -24,13 +24,20 @@
       　     <h2>キャンプ場名</h2>
       　 　  <h2>{{$post->camp}}</h2>
       　   </div>
-      　   <div class="body">
-      　       <h2>概要</h2>
-      　       <h2>{{$post->body}}</h2>
-      　   </div>
+      　  @foreach($post->images as $image)
+      　  <div class="w-64 h-64" >
+      　      <img class = "float-none" src="{{$image->image_url}}" alt = "画像が読み込めません。"/>
+      　  </div>
+      　  @endforeach
+          　  <p>概要</p>
+          　  <p>{{$post->body}}</p>
       　   <div class="season">
       　       <h2>シーズン</h2>
       　       <h2>{{$post->season->season}}</h2>
+      　   </div>
+      　   <div class = 'style'>
+      　       <h2> 利用スタイル</h2>
+      　       <h2>{{$post->style->name}}</h2>
       　   </div>
       　   @auth
       　   @if (!$post->isLikedBy(Auth::user(), $post))
@@ -66,7 +73,7 @@
       　   </div>
       　   @endif
       　   @if (auth()->id() == $post->user_id)
-      　   <form action="/posts/{{$post->id}}" id="form_{{$post->id}}" method="POST">
+      　   <form action="/posts/{{$post->id}}" id="form_{{$post->id}}" method="POST" enctype = "multipart/form-data">
       　       @csrf
       　       @method('DELETE')
 　　　　　<button type="button" onclick="deletePost({{$post->id}})">削除</button>

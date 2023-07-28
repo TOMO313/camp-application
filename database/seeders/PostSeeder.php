@@ -21,8 +21,9 @@ class PostSeeder extends Seeder
             'body'=>'静岡県掛川市にあり、清流と緑に囲まれた山あいのキャンプ場です！特徴は源泉100%の天然温泉「ならここの湯」があり、肌がつるつるになる泉質が自慢です！レンタル用品が充実しているので手ぶらでもキャンプをすることができます！',
             'created_at'=>new DateTime(),
             'updated_at'=>new DateTime(),
-            'season_id'=>'1',
-            'user_id'=>'1',
+            'season_id'=>1,
+            'user_id'=>1,
+            'style_id'=>1,
             
         ]);
     }

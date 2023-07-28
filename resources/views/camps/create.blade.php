@@ -11,7 +11,7 @@
     </head>
     <body class="antialiased">
        <h1>キャンプ場投稿作成画面</h1>
-      　<form action="/posts" method="POST">
+      　<form action="/posts" method="POST" enctype="multipart/form-data">
       　    @csrf
       　   <div class="user">
       　       <h2>投稿者名</h2>
@@ -35,8 +35,19 @@
       　           @endforeach
       　       </select>
       　   </div>
+      　   <div class = "style">
+      　       <h2>利用スタイル</h2>
+      　       <select name = "post[style_id]">
+      　           @foreach($styles as $style)
+      　           <option value = "{{$style->id}}">{{$style->name}}</option>
+      　           @endforeach
+      　       </select>
+      　   </div>
+      　   <div class="image">
+      　       <input type="file" multiple name="image[]"/> 
+      　   </div>
       　   <input type="submit" value="投稿"/>
-      　</form>
+        </form>
       　<div class="footer">
       　    <a href="/">戻る</a>
       　</div>
