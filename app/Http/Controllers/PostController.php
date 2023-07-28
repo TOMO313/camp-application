@@ -9,12 +9,15 @@ use App\Models\Season;
 use App\Http\Requests\PostRequest;
 use App\Models\Like;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Image;
+use Cloudinary;
+use App\Models\Style;
 
 class PostController extends Controller
 {
     public function index(Post $post)
     {
-        return view('camps.index')->with(['posts'=>$post->getPaginateBylimit(1)]);
+        return view('camps.index')->with(['posts'=>$post->getPaginateBylimit(5)]);
     }
     
     public function show(Post $post)
@@ -27,34 +30,68 @@ class PostController extends Controller
         return view('camps.show')->with(['post' => $post]);
     }
     
-    public function create(Season $season)
+    public function create(Season $season, Style $style)
     {
         $user=auth()->user();
-        return view('camps.create')->with(['seasons'=>$season->get(), 'user'=>$user]);
+        return view('camps.create')->with(['seasons'=>$season->get(), 'user'=>$user, 'styles' => $style->get()]);
     }
     
     public function store(PostRequest $request, Post $post)
     {
-        $input=$request['post'];
+        $input = $request['post'];
         $post->user_id=auth()->user()->id;
         $post->fill($input)->save();
+        if ($request->file('image')){
+        $post_images = $request->file('image');
+        
+        
+        foreach($post_images as $post_image)
+        {
+            $image_url = Cloudinary::upload($post_image->getRealPath())->getSecurePath();
+            $image = new Image();
+            $image->post_id = $post->id;
+            $image->image_url = $image_url;
+            $image->public_id = Cloudinary::getPublicId();
+            $image->save();
+            
+        }
+        }
         return redirect('/posts/'.$post->id);
     }
     
-    public function edit(Post $post, Season $season)
+    public function edit(Post $post, Season $season, Style $style)
     {
-        return view('camps.edit')->with(['post'=>$post, 'seasons'=>$season->get()]);
+        return view('camps.edit')->with(['post'=>$post, 'seasons'=>$season->get(), 'styles' => $style->get()]);
     }
     
     public function update(PostRequest $request, Post $post)
     {
         $input_post=$request['post'];
         $post->fill($input_post)->save();
+        if ($request->file('image')){
+        $post_images = $request->file('image');
+        
+        
+        foreach($post_images as $post_image)
+        {
+            $image_url = Cloudinary::upload($post_image->getRealPath())->getSecurePath();
+            $image = new Image();
+            $image->post_id = $post->id;
+            $image->image_url = $image_url;
+            $image->public_id = Cloudinary::getPublicId();
+            $image->save();
+        }
+        }
         return redirect('/posts/'.$post->id);
     }
     
-    public function delete(Post $post)
+     public function delete(Post $post)
     {
+        foreach($post->images as $image)
+        {
+            $publicId = $image->public_id;
+            Cloudinary::destroy($publicId);
+        }
         $post->delete();
         return redirect('/');
     }

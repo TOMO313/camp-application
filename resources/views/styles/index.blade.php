@@ -13,12 +13,6 @@
     <body class="antialiased">
         <div class="posts">
       　    <h2>キャンプ場投稿一覧</h2>
-      　    <div class = "style">
-      　    <h2> 利用スタイルで絞り込み!</h2>
-      　    <a href = "/seasons/{{$season->id}}/1">家族向け</a>
-      　    <a href = "/seasons/{{$season->id}}/2">ソロ</a>
-      　    <a href = "/seasons/{{$season->id}}/3">手ぶら</a>
-      　    </div>
       　    @foreach($posts as $post)
       　    <div class="post">
       　        <h2>投稿者名</h2>
@@ -35,10 +29,10 @@
       　    @endforeach
       　</div>
       　<div class="paginate">
-      　    {{$posts->links()}}
-      　</div>
-      　<div class="footer">
-      　    <a href="/">戻る</a>
-      　</div>
+          　    {{$posts->links()}}
+        </div>
+      　 <div class="footer">
+      　    <a href="/seasons/{{$season->id}}">戻る</a>
+         </div>
     </body>
 </html>

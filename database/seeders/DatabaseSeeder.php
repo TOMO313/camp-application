@@ -15,6 +15,6 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call(SeasonSeeder::class);
-        $this->call(PostSeeder::class);
+        $this->call(StyleSeeder::class);
     }
 }

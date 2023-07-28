@@ -19,6 +19,9 @@ return new class extends Migration
             $table->string('body', 5000);
             $table->timestamps();
             $table->softDeletes();
+            $table->foreignId('season_id')->constrained();
+            $table->foreignId('user_id')->constrained();
+            $table->foreignId('style_id')->constrained();
         });
     }
 
