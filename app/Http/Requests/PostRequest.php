@@ -28,4 +28,12 @@ class PostRequest extends FormRequest
             'post.body'=>'required|string|max:5000',
         ];
     }
+    
+    public function messages()
+    {
+        return[
+            'post.camp' => 'キャンプ場名は必ず記入してください。',
+            'post.body' => '概要は必ず記入してください。'
+            ];
+    }
 }
