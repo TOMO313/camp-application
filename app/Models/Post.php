@@ -25,6 +25,7 @@ class Post extends Model
     protected $fillable=[
         'camp',
         'body',
+        'address',
         'season_id',
         'style_id',
     ];

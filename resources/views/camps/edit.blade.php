@@ -26,8 +26,13 @@
           　     <p class = "camp_error" style = "color:red">{{$errors->first('post.camp')}}</p>
           　   </div>
           　   <div class = "grid justify-items-center">
+          　     <h2 class = "text-xl text-white">住所</h2>
+          　     <input class = "border rounded text-black" type = "text" name = "post[address]" placeholder = "○○県○○市～" value = "{{$post->address}}"/>
+          　     <p class = "address_error" style = "color:red">{{$errors->first('post.address')}}</p>
+          　   </div>
+          　   <div class = "grid justify-items-center">
           　     <h2 class = "text-xl text-green-500">概要</h2>
-          　     <textarea class = "resize border rounded text-black" name = "post[body]" placeholder = "基本情報・特徴・魅力など">{{$post->body}}</textarea>
+          　     <textarea class = "resize border rounded text-black" name = "post[body]" placeholder = "特徴・魅力など">{{$post->body}}</textarea>
           　     <p class = "body_error" style = "color:red">{{$errors->first('post.body')}}</p>
           　   </div>
           　   <div class = "grid justify-items-center">

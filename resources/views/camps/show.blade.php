@@ -3,18 +3,31 @@
     <head>
         <meta charset="utf-8">
         <meta name="csrf-token" content="{{ csrf_token() }}">
+        <meta name="viewport" content="initial-scale=1.0">
+        <script src="https://maps.google.com/maps/api/js?key={{config('services.Google.token')}}&language=ja"></script>
         <title>キャンプ場詳細｜シーズン別キャンプ場リサーチ！</title>
         <link rel="stylesheet" href="{{ asset('/css/style.css') }}">
         <link href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+        <style>
+            #google_map {
+                height: 100%;
+            }
+        
+            .map {
+                height: 300px;
+                width: 1200px;
+                margin: 30px;
+            }
+        </style>
     </head>
     <body class = "bg-black text-white italic font-bold">
         <div class = "grid justify-items-center">
             <h1 class = "text-2xl my-4">キャンプ場詳細</h1>
             <div class = "grid justify-items-center my-4">
-                <h2 class = "text-xl text-blue-500 hover:text-yellow-500 border-b-2 border-b-yellow-500">{{$post->camp}}</h2>
+                <h2 class = "text-xl text-blue-500 border-b-2 border-b-yellow-500">{{$post->camp}}</h2>
                 <p class = "text-sm">投稿者名:{{$post->user->name}}</p>
             </div>
                  @auth
@@ -80,9 +93,53 @@
                </div>
                @endforeach
            </div>
+        <div class="map">
+        <div class = "text-black" id="google_map" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></div>
         <div class="text-xl grid justify-items-center mt-12">
             <a class = "rounded-full bg-blue-500 hover:bg-yellow-500 p-1 duration-300" href="/">戻る</a>
         </div>
+        <script>
+        const target = document.getElementById('google_map');
+        const address = "{{$post->address}}";
+        const geocoder = new google.maps.Geocoder();
+
+        geocoder.geocode({ address: address }, function (results, status) {
+            if (status === 'OK' && results[0]) {
+                // Map取得
+                const map = new google.maps.Map(target, {
+                    zoom: 15,
+                    center: results[0].geometry.location,
+                    mapTypeId: 'roadmap'
+                });
+
+                // Marker取得
+                const marker = new google.maps.Marker({
+                    position: results[0].geometry.location,
+                    map: map
+                });
+
+                // 情報ウィンドウ設定
+                const latlng = new google.maps.LatLng(results[0].geometry.location.lat(), results[0].geometry.location.lng());
+                const info = '<div class="info">' +
+                 '<p>' + address + '</p>' +
+                    '<p><a href="https://maps.google.co.jp/maps?q=' + latlng + '&iwloc=J" target="_blank" rel="noopener noreferrer">Googleマップで見る</a></p>' +
+                    '</div>';
+                var infowindow = new google.maps.InfoWindow({
+                    content: info
+                });
+
+                // 情報ウィンドウ表示
+                infowindow.open(map, marker);
+
+                // クリックイベント設定
+                google.maps.event.addListener(marker, 'click', function () {
+                    infowindow.open(map, marker);
+                });
+            } else {
+                return;
+            }
+        });
+        </script>
     </body>
 </html>
 <script>
@@ -92,7 +149,4 @@
             document.getElementById(`form_${id}`).submit();
         }
     }
-</script>
-<script async
-    src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap">
 </script>

@@ -62,7 +62,7 @@
           　    </div>
           　    @endforeach
           　</div>
-          　<div class="paginate">
+          　<div class = "flex justify-center mt-12 text-xl">
           　    {{$posts->links()}}
           　</div>
         </div>
