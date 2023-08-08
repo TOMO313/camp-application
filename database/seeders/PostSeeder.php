@@ -19,6 +19,7 @@ class PostSeeder extends Seeder
         DB::table('posts')->insert([
             'camp'=>'ならここの里キャンプ場',
             'body'=>'静岡県掛川市に位置し、清流と緑に囲まれた山あいのキャンプ場です！特徴は源泉100%の天然温泉「ならここの湯」があり、肌がつるつるになる泉質が自慢です！レンタル用品が充実しているので手ぶらでもキャンプをすることができます！',
+            'address' => '静岡県掛川市居尻179',
             'created_at'=>new DateTime(),
             'updated_at'=>new DateTime(),
             'season_id'=>1,

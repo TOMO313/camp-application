@@ -26,6 +26,7 @@ class PostRequest extends FormRequest
         return [
             'post.camp'=>'required|string|max:50',
             'post.body'=>'required|string|max:5000',
+            'post.address'=>'required|string|max:50',
         ];
     }
     
@@ -33,7 +34,8 @@ class PostRequest extends FormRequest
     {
         return[
             'post.camp' => 'キャンプ場名は必ず記入してください。',
-            'post.body' => '概要は必ず記入してください。'
+            'post.body' => '概要は必ず記入してください。',
+            'post.address' => '住所は必ず記入してください。'
             ];
     }
 }

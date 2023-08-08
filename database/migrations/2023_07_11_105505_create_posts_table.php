@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('camp', 50);
             $table->string('body', 5000);
+            $table->string('address', 100);
             $table->timestamps();
             $table->softDeletes();
             $table->foreignId('season_id')->constrained();

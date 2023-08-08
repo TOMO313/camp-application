@@ -39,7 +39,7 @@
             </div>
             @endforeach
         </div>
-        <div>
+        <div class = "flex justify-center mt-12 text-xl">
             {{$posts->links()}}
         </div>
         <div class = "grid justify-items-center text-xl my-5">
