@@ -34,5 +34,9 @@ return [
     'Google' => [
         'token' => env('GOOGLE_ACCESS_TOKEN')
     ],
+    
+    'User' => [
+      'Password' => env('USER_PASSWORD')  
+    ],
 
 ];
