@@ -9,7 +9,7 @@ class Season extends Model
 {
     use HasFactory;
     
-    public function getPaginateBySeason(int $limit_count=10){
+    public function getPaginateBySeason(int $limit_count = 10){
         return $this->posts()->with('season')->orderBy('updated_at', 'DESC')->paginate($limit_count);
     }
     

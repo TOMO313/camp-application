@@ -6,7 +6,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\SeasonController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ImageController;
-
+use App\Http\Controllers\EventController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -44,5 +44,11 @@ Route::get('/seasons/{season}/{style}', [SeasonController::class, 'style'])->mid
 Route::post('/comments/{post}', [CommentController::class, 'store'])->middleware("auth");
 
 Route::post('/images', [ImageController::class, 'store'])->middleware("auth");
+
+Route::get('/calendar', [EventController::class, 'show'])->middleware("auth")->name("calendar.show");
+Route::post('/calendar/create', [EventController::class, 'create'])->middleware("auth")->name("calendar.create");
+Route::post('/calendar/get', [EventController::class, 'get'])->middleware("auth")->name("calendar.get");
+Route::put('/calendar/update', [EventController::class, 'update'])->middleware('auth')->name("calendar.update");
+Route::delete('/calendar/delete', [EventController::class, 'delete'])->middleware('auth')->name("calendar.delete");
 
 require __DIR__.'/auth.php';
