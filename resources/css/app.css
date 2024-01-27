@@ -1,3 +1,11 @@
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
+
+.pagination {
+    text-align: center;
+}
+
+.pagination li{
+    display: inline-block;
+}

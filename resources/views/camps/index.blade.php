@@ -7,6 +7,7 @@
         <title>シーズン別キャンプ場リサーチ！</title>
 
         <link href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="{{asset('/css/app.css')}}"
 
     </head>
     <body class="antialiased">
@@ -24,49 +25,49 @@
               <div class = "h-12">
                 <a class = "bg-blue-500 hover:bg-yellow-500 p-3 rounded-full shadow-lg duration-300" href="/seasons/1">
                      春におすすめ
-            　  </a>
+               </a>
               </div>
               <div class = "h-12 mr-52">  
                 <a class = "bg-blue-500 hover:bg-yellow-500 p-3 rounded-full shadow-lg duration-300" href="/seasons/2">
                      夏におすすめ
              </a>
-            　</div>
+             </div>
               <div class = "h-12"> 
                 <a class = "bg-blue-500 hover:bg-yellow-500 p-3 rounded-full shadow-lg duration-300" href="/seasons/3">
                      秋におすすめ
              </a>
-            　</div>
+             </div>
               <div class = "h-12 mr-52">  
                 <a class = "bg-blue-500 hover:bg-yellow-500 p-3 rounded-full shadow-lg duration-300" href="/seasons/4">
                      冬におすすめ
              </a>
-            　</div>
+             </div>
             </div>
          <div class="grid justify-items-center space-y-2">
               <a class = "my-2 p-3 rounded-md bg-blue-500 hover:bg-yellow-500 shadow-lg font-bold text-xl duration-300" href='/posts/create'>キャンプ場投稿</a>
-            　<p class = "font-bold text-xl">自分のお気に入りのキャンプ場を投稿してみよう！</p>
+             <p class = "font-bold text-xl">自分のお気に入りのキャンプ場を投稿してみよう！</p>
             </div>
-          　<div class = "grid justify-items-center">
-          　    <h1 class = "font-bold text-2xl my-4">キャンプ場投稿一覧</h2>
-          　    @foreach($posts as $post)
-          　    <div class = "font-bold grid justify-items-center backdrop-blur-sm bg-black/30">
-          　        <a class = "border-b-2 border-b-yellow-500 text-xl text-blue-500 hover:text-yellow-500" href="/posts/{{$post->id}}">{{$post->camp}}</a>
-          　        <p class = "text-sm">投稿者名:{{$post->user->name}}</p>
-          　        <h2 class = "float-none text-xl text-green-500">概要</h2>
-          　        <p class = "text-xl mx-60">{{$post->body}}</p>
-          　        <h2 class = "text-xl text-red-500">シーズン</h2>
-          　        <p class = "text-xl">{{$post->season->season}}</p>
-          　        <h2 class = "text-xl text-yellow-500">利用スタイル</h2>
-          　        <p class = "text-xl">{{$post->style->name}}</p>
-          　    </div>
-          　    @endforeach
-          　</div>
-          　<div class = "flex justify-center mt-12 text-xl">
-          　    {{$posts->links()}}
-          　</div>
-          　<div class = calendar>
-          　   <a href = "{{ route('calendar.show') }}">カレンダー表示</a>
-          　</div>  
+           <div class = "grid justify-items-center">
+               <h1 class = "font-bold text-2xl my-4">キャンプ場投稿一覧</h2>
+               @foreach($posts as $post)
+               <div class = "font-bold grid justify-items-center backdrop-blur-sm bg-black/30">
+                   <a class = "border-b-2 border-b-yellow-500 text-xl text-blue-500 hover:text-yellow-500" href="/posts/{{$post->id}}">{{$post->camp}}</a>
+                   <p class = "text-sm">投稿者名:{{$post->user->name}}</p>
+                   <h2 class = "float-none text-xl text-green-500">概要</h2>
+                   <p class = "text-xl mx-60">{{$post->body}}</p>
+                   <h2 class = "text-xl text-red-500">シーズン</h2>
+                   <p class = "text-xl">{{$post->season->season}}</p>
+                   <h2 class = "text-xl text-yellow-500">利用スタイル</h2>
+                   <p class = "text-xl">{{$post->style->name}}</p>
+               </div>
+               @endforeach
+           </div>
+           <div class = "pagination">
+               {{$posts->links()}}
+           </div>
+           <div class = calendar>
+              <a href = "{{ route('calendar.show') }}">カレンダー表示</a>
+           </div>  
         </div>
       </x-app-layout>
     </body>
