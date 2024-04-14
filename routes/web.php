@@ -7,6 +7,7 @@ use App\Http\Controllers\SeasonController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\ChatController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -50,5 +51,8 @@ Route::post('/calendar/create', [EventController::class, 'create'])->middleware(
 Route::post('/calendar/get', [EventController::class, 'get'])->middleware("auth")->name("calendar.get");
 Route::put('/calendar/update', [EventController::class, 'update'])->middleware('auth')->name("calendar.update");
 Route::delete('/calendar/delete', [EventController::class, 'delete'])->middleware('auth')->name("calendar.delete");
+
+Route::get('/chat/{user}', [ChatController::class, 'openChat'])->middleware("auth");
+Route::post('/chat', [ChatController::class, 'sendMessage'])->middleware("auth");
 
 require __DIR__.'/auth.php';
