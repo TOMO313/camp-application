@@ -6,4 +6,5 @@ class Chat
 {
     public $userName;
     public $body;
+    public $chat_id;
 }

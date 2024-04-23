@@ -46,8 +46,8 @@ class ChatController extends Controller
        $chat=new Chat;
        $chat->body=$strMessage;
        $chat->chat_id=$request->input('chat_id');
-       
        $chat->userName=$strUsername;
+       
        MessageSent::dispatch($chat);
        
        $message->user_id=$strUserId;
