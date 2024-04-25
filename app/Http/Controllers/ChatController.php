@@ -8,11 +8,12 @@ use App\Models\Room;
 use App\Models\Message;
 use App\Models\User;
 use App\Events\MessageSent;
+use App\Models\Post;
 
 
 class ChatController extends Controller
 {
-   public function openChat(User $user){
+   public function openChat(User $user, Post $post){
        $myUserId = auth()->user()->id;
        $otherUserId = $user->id;
        
@@ -31,9 +32,9 @@ class ChatController extends Controller
            $chat->save();
        }
        
-       $messages = Message::where('chat_id', $chat->id)->orderBy('updated_at', 'DESC')->get();
+       $messages = Message::where('chat_id', $chat->id)->where('post_id', $post->id)->orderBy('updated_at', 'DESC')->get();
        
-       return view('chats/chat')->with(['chat'=>$chat, 'messages'=>$messages]);
+       return view('chats/chat')->with(['chat'=>$chat, 'messages'=>$messages, 'post'=>$post]);
    }
    
    public function sendMessage(Message $message, Request $request){
@@ -53,6 +54,7 @@ class ChatController extends Controller
        $message->user_id=$strUserId;
        $message->body=$strMessage;
        $message->chat_id=$request->input('chat_id');
+       $message->post_id=$request->input('post_id');
        $message->save();
        
        return response()->json(['message'=>'Message sent successfully']);

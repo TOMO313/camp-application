@@ -26,7 +26,7 @@
     <body class = "bg-black text-white italic font-bold">
         <div class = "grid justify-items-center">
             <h1 class = "text-2xl my-4">キャンプ場詳細</h1>
-            <a href="/chat/{{$post->user->id}}">{{$post->user->name}}とチャットする</a>
+            <a href="/chat/{{$post->user->id}}/{{$post->id}}">{{$post->user->name}}とチャットする</a>
             <div class = "grid justify-items-center my-4">
                 <h2 class = "text-xl text-blue-500 border-b-2 border-b-yellow-500">{{$post->camp}}</h2>
                 <p class = "text-sm">投稿者名:{{$post->user->name}}</p>
