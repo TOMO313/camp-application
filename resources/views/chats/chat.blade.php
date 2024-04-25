@@ -17,6 +17,7 @@
                         <form method="post" onsubmit="onsubmit_Form(); return false;">
                             メッセージ：<input type="text" id="input_message" autocomplete="off"/>
                             <input type="hidden" id="chat_id" name="chat_id" value="{{$chat->id}}"/>
+                            <input type="hidden" id="post_id" name="post_id" value="{{$post->id}}"/>
                             <button type="submit">送信</button>
                         </form>
                         
@@ -38,6 +39,7 @@
     <script>
         const elementInputMessage = document.getElementById("input_message");
         const chatId = document.getElementById("chat_id").value;
+        const postId = document.getElementById("post_id").value;
         
         function onsubmit_Form()
         {
@@ -48,7 +50,8 @@
             }
             params = {
                 'message':strMessage,
-                'chat_id':chatId
+                'chat_id':chatId,
+                'post_id':postId
             };
             axios
             .post('/chat', params)

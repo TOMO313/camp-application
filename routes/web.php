@@ -52,7 +52,7 @@ Route::post('/calendar/get', [EventController::class, 'get'])->middleware("auth"
 Route::put('/calendar/update', [EventController::class, 'update'])->middleware('auth')->name("calendar.update");
 Route::delete('/calendar/delete', [EventController::class, 'delete'])->middleware('auth')->name("calendar.delete");
 
-Route::get('/chat/{user}', [ChatController::class, 'openChat'])->middleware("auth");
+Route::get('/chat/{user}/{post}', [ChatController::class, 'openChat'])->middleware("auth");
 Route::post('/chat', [ChatController::class, 'sendMessage'])->middleware("auth");
 
 require __DIR__.'/auth.php';

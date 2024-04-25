@@ -12,7 +12,7 @@ class Post extends Model
     use SoftDeletes;
     use \Askedio\SoftCascade\Traits\SoftCascadeTrait;
     
-    protected $softCascade = ['images'];
+    protected $softCascade = ['images','messages'];
     
     public function getPaginateBylimit(int $limit_count=10){
         return $this::with('season')->orderBy('updated_at', 'DESC')->paginate($limit_count);
@@ -62,5 +62,9 @@ class Post extends Model
      public function style()
     {
         return $this->belongsTo(Style::class);
+    }
+    
+    public function messages(){
+        return $this->hasMany(Message::class);
     }
 }
