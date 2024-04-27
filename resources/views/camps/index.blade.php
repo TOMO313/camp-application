@@ -1,14 +1,10 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
-        
         <meta charset="utf-8">
-
         <title>シーズン別キャンプ場リサーチ！</title>
-
         <link href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="{{asset('/css/app.css')}}"
-
     </head>
     <body class="antialiased">
       <x-app-layout>
@@ -62,6 +58,7 @@
                </div>
                @endforeach
            </div>
+           <a href="/ranking">ランキング</a>
            <div class = "pagination">
                {{$posts->links()}}
            </div>

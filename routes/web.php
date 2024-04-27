@@ -30,6 +30,7 @@ Route::middleware('auth')->group(function () {
 
 Route::controller(PostController::class)->middleware(['auth'])->group(function(){
     Route::get('/', 'index')->name('シーズン別キャンプ場リサーチ！');
+    Route::get('/ranking', 'ranking');
     Route::get('/posts/create', 'create')->name('create');
     Route::get('/posts/{post}', 'show')->name('show');
     Route::get('/posts/{post}/edit', 'edit')->name('edit');
