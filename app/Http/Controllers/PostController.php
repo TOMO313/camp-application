@@ -20,6 +20,12 @@ class PostController extends Controller
         return view('camps.index')->with(['posts'=>$post->getPaginateBylimit(1)]);
     }
     
+    public function ranking()
+    {
+        $posts = Post::withCount('likes')->orderBy('likes_count', 'DESC')->paginate(1);
+        return view('camps.ranking')->with(['posts'=>$posts]);
+    }
+    
     public function show(Post $post)
     {
         $user = auth()->user();
